@@ -1,0 +1,176 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div class="card shadow p-4">
+
+        <h2 class="text-success">
+            PDF Converted Successfully
+        </h2>
+
+        <hr>
+
+        <div class="row mb-4">
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>📑 {{ document_info.pages }}</h3>
+
+                    <p>Pages</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>📝 {{ document_info.words }}</h3>
+
+                    <p>Words</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>🔊 {{ document_info.duration }}</h3>
+
+                    <p>Minutes</p>
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        <div class="row mb-4">
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>{{ analysis.total }}</h3>
+
+                    <p>Total Lines</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>{{ analysis.read }}</h3>
+
+                    <p>Read</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>{{ analysis.ignored }}</h3>
+
+                    <p>Ignored</p>
+
+                </div>
+
+            </div>
+
+            <div class="col">
+
+                <div class="card p-3 text-center">
+
+                    <h3>{{ processing_time }} s</h3>
+
+                    <p>Processing Time</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <h3>Machine Learning Decisions</h3>
+
+        <div class="table-responsive mb-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Extracted Line</th>
+                        <th>Prediction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in analysis.results %}
+                        <tr>
+                            <td>{{ item.text }}</td>
+                            <td>
+                                {% if item.prediction == "Read" %}
+                                    <span class="badge bg-success">Read</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Ignore</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <h4>Extracted Text</h4>
+
+        <div
+            class="border rounded p-3"
+            style="height:300px;
+                   overflow:auto;
+                   background:#f8f9fa;">
+
+            <pre>{{ text }}</pre>
+
+        </div>
+
+        <br>
+
+        <h4>Audio Player</h4>
+
+        <audio controls style="width:100%;">
+
+            <source
+                src="{{ url_for('audio', filename=audio_file) }}"
+                type="audio/mpeg">
+
+        </audio>
+
+        <br><br>
+
+        <a
+            href="{{ url_for('audio', filename=audio_file) }}"
+            download
+            class="btn btn-success">
+
+            Download MP3
+
+        </a>
+
+        <a
+            href="/"
+            class="btn btn-primary">
+
+            Convert Another PDF
+
+        </a>
+
+    </div>
+
+{% endblock %}

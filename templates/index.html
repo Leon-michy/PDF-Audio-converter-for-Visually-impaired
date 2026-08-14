@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+Home
+
+{% endblock %}
+
+{% block content %}
+
+<div class="card shadow p-5">
+
+<h2>
+
+Upload PDF
+
+</h2>
+
+<p>
+
+Convert PDF documents into speech.
+
+</p>
+
+<form
+action="/upload"
+method="POST"
+enctype="multipart/form-data">
+
+<input
+
+class="form-control"
+
+type="file"
+
+name="pdf"
+
+accept=".pdf">
+
+<br>
+
+<hr>
+
+<h4>
+Speech Settings
+</h4>
+
+<label class="form-label">
+
+Select Voice
+
+</label>
+
+<select
+class="form-select"
+name="voice">
+
+<option value="en-US-AriaNeural">
+
+Female - US
+
+</option>
+
+<option value="en-US-GuyNeural">
+
+Male - US
+
+</option>
+
+<option value="en-GB-SoniaNeural">
+
+Female - British
+
+</option>
+
+</select>
+
+<br>
+
+<label class="form-label">
+
+Reading Speed
+
+</label>
+
+<select
+class="form-select"
+name="speed">
+
+<option value="-25%">
+
+Slow
+
+</option>
+
+<option value="+0%"
+selected>
+
+Normal
+
+</option>
+
+<option value="+25%">
+
+Fast
+
+</option>
+
+</select>
+
+<br>
+
+<button
+
+class="btn btn-primary w-100">
+
+Convert to Audio
+
+</button>
+
+</form>
+
+</div>
+
+{% endblock %}
